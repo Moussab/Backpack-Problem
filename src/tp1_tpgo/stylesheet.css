@@ -1,0 +1,15 @@
+.background {
+    -fx-background-color: #90A4AE;
+}
+.ValidationBtn, .QuitterBtn, .SacBtn, .ObjectBtn, .LancerBtn{
+    -fx-text-fill: #006464;
+    -fx-padding: 5 22 5 22;
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;
+    -fx-background-color: #DFB951;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-text-fill: #000;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-font-size: 12;
+}

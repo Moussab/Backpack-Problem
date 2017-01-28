@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_tp1_tpgo" default="compile.module.tp1_tpgo">
+  <dirname property="module.tp1_tpgo.basedir" file="${ant.file.module_tp1_tpgo}"/>
+  
+  <property name="module.jdk.home.tp1_tpgo" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.tp1_tpgo" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.tp1_tpgo" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.tp1_tpgo" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  
+  <property name="tp1_tpgo.output.dir" value="${module.tp1_tpgo.basedir}/out/production/tp1_tpgo"/>
+  <property name="tp1_tpgo.testoutput.dir" value="${module.tp1_tpgo.basedir}/out/test/tp1_tpgo"/>
+  
+  <path id="tp1_tpgo.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="tp1_tpgo.module.production.classpath">
+    <path refid="${module.jdk.classpath.tp1_tpgo}"/>
+  </path>
+  
+  <path id="tp1_tpgo.runtime.production.module.classpath">
+    <pathelement location="${tp1_tpgo.output.dir}"/>
+  </path>
+  
+  <path id="tp1_tpgo.module.classpath">
+    <path refid="${module.jdk.classpath.tp1_tpgo}"/>
+    <pathelement location="${tp1_tpgo.output.dir}"/>
+  </path>
+  
+  <path id="tp1_tpgo.runtime.module.classpath">
+    <pathelement location="${tp1_tpgo.testoutput.dir}"/>
+    <pathelement location="${tp1_tpgo.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.tp1_tpgo">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.tp1_tpgo">
+    <patternset refid="excluded.from.module.tp1_tpgo"/>
+  </patternset>
+  
+  <path id="tp1_tpgo.module.sourcepath">
+    <dirset dir="${module.tp1_tpgo.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.tp1_tpgo" depends="compile.module.tp1_tpgo.production,compile.module.tp1_tpgo.tests" description="Compile module tp1_tpgo"/>
+  
+  <target name="compile.module.tp1_tpgo.production" depends="register.custom.compilers" description="Compile module tp1_tpgo; production classes">
+    <mkdir dir="${tp1_tpgo.output.dir}"/>
+    <javac2 destdir="${tp1_tpgo.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.tp1_tpgo}/javac">
+      <compilerarg line="${compiler.args.tp1_tpgo}"/>
+      <bootclasspath refid="tp1_tpgo.module.bootclasspath"/>
+      <classpath refid="tp1_tpgo.module.production.classpath"/>
+      <src refid="tp1_tpgo.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.tp1_tpgo"/>
+    </javac2>
+    
+    <copy todir="${tp1_tpgo.output.dir}">
+      <fileset dir="${module.tp1_tpgo.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.tp1_tpgo.tests" depends="register.custom.compilers,compile.module.tp1_tpgo.production" description="compile module tp1_tpgo; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.tp1_tpgo" description="cleanup module">
+    <delete dir="${tp1_tpgo.output.dir}"/>
+    <delete dir="${tp1_tpgo.testoutput.dir}"/>
+  </target>
+</project>
